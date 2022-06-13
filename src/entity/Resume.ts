@@ -12,8 +12,8 @@ export class Resume {
     @Column()
     secondName: string
     
-    @Column({"type": Date})
-    dateofBirth: string
+    @Column()
+    dateOfBirth: string
 
     @Column()
     gender: string

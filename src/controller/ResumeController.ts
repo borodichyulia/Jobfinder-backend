@@ -14,7 +14,7 @@ export class ResumeController {
         const {
             name,
             secondName,
-            dateofBirth,
+            dateOfBirth,
             gender,
             email,
             country,
@@ -31,7 +31,7 @@ export class ResumeController {
         const resumeToAdd = AppDataSource.getRepository(Resume).create({
             name: name,
             secondName: secondName,
-            dateofBirth: dateofBirth,
+            dateOfBirth: dateOfBirth,
             gender: gender,
             email: email,
             country: country,
