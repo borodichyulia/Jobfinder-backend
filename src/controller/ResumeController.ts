@@ -50,6 +50,13 @@ export class ResumeController {
 
     }
 
+    async remove(request: Request, response: Response) {
+        console.log(request.params.id);
+        let profileToRemove = await resumeRepository.findBy({ id: request.params.id });
+        resumeRepository.remove(profileToRemove);
+        response.send(profileToRemove);
+    }  
+
 
 
 }
