@@ -2,7 +2,7 @@ import { ApplicantProfileController } from "../controller/ApplicantProfileContro
 
 
 const applicantProfile = new ApplicantProfileController;
-export const CompanyProfileRoutes = [
+export const ApplicantProfileRoutes = [
 //     {
 //     method: "get",
 //     route: "/company",

@@ -3,7 +3,7 @@ import { ApplicantProfile } from "../entity/ApplicantProfile"
 import { AppDataSource } from "../data-source"
 
 const applicantProfileRepository = AppDataSource.getRepository(ApplicantProfile)
-export class CompanyProfileController {
+export class ApplicantProfileController {
 
     // async findByName(request: Request, response: Response) {
     //     const foundCompany = await applicantProfileRepository.findBy({ name: request.query.name })
