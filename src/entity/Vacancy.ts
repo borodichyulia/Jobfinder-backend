@@ -26,4 +26,6 @@ export class Vacancy {
     
     @Column()
     contacts: string
+
+    
 }

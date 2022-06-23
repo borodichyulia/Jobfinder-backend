@@ -1,24 +1,21 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
 
 @Entity()
-export class ApplicantProfile {
+export class User {
 
     @PrimaryGeneratedColumn()
     id: number
 
     @Column()
-    name: string
-
-    @Column()
-    surname: string
-    
-    @Column()
     email: string
 
     @Column()
-    age: string
+    password: string
+
+    @Column('boolean', {default: false})
+    isActivated: boolean
 
     @Column()
-    phone: string
+    activationLink: string
 
 }

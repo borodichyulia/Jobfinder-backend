@@ -6,7 +6,7 @@ const resumeRepository = AppDataSource.getRepository(Resume)
 export class ResumeController {
 
     async findBySpecialization(request: Request, response: Response) {
-        const foundResumes = await resumeRepository.findBy({ profession: request.query.profession })
+        const foundResumes = await AppDataSource.getRepository(Resume).findBy({profession: request.query.profession })
         response.send(foundResumes);
     }
 
