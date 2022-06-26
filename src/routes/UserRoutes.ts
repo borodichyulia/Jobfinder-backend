@@ -14,10 +14,4 @@ export const UserRoutes = [
     controller: UserController,
     action: user.activate,
   },
-  // {
-  //     method: "delete",
-  //     route: "/resumes/:id",
-  //     controller: UserController,
-  //     action: user.remove
-  // },
 ];

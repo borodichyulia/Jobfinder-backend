@@ -9,7 +9,7 @@ export class MailService {
       secure: true,
       auth: {
         user: 'jobfinder01@mail.ru',
-        pass: 'MDarC2caUxd9u3XRKg1D', //password is wrong
+        pass: 'MDarC2caUxd9u3XRKg1D',
       },
     });
   }

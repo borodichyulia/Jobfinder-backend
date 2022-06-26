@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
+
 import { Resume } from './entity/Resume';
 import { Vacancy } from './entity/Vacancy';
 import { CompanyProfile } from './entity/CompanyProfile';

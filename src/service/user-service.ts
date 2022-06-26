@@ -1,12 +1,11 @@
-import { User } from '../entity/User';
-import { AppDataSource } from '../data-source';
 import * as bcrypt from 'bcrypt';
 import * as uuid from 'uuid';
 
+import { User } from '../entity/User';
+import { AppDataSource } from '../data-source';
 import { MailService } from './mail-service';
 import { TokenService } from './token-service';
 import { UserDto } from '../dtos/user-dto';
-
 import { ApiError } from '../exeptions/api-error';
 
 const userRepository = AppDataSource.getRepository(User);
@@ -19,16 +18,15 @@ export class UserService {
     const candidate = await AppDataSource.getRepository(User).findOne({
       where: { email: email },
     });
-    console.log(candidate);
     if (candidate) {
       throw ApiError.BadRequest(
         `Пользователь с почтовым адресом ${email} уже существует`
       );
     }
     const hashPassword = await bcrypt.hash(password, 3);
-    const activationLink = uuid.v4(); // v34fa-asfasf-142saf-sa-asf
+    const activationLink = uuid.v4();
 
-    const user = await userRepository.create({
+    const newUser = await userRepository.create({
       email: email,
       password: hashPassword,
       activationLink: activationLink,
@@ -39,9 +37,8 @@ export class UserService {
       `http://localhost:3000/users/activate/${activationLink}`
     );
 
-    const user1 = await userRepository.save(user);
-    const userDto = new UserDto(user1); // id, email, isActivated
-    console.log(userDto);
+    const user = await userRepository.save(newUser);
+    const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
 
     await tokenService.saveToken(userDto.id, tokens.refreshToken);

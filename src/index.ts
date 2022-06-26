@@ -3,13 +3,14 @@ import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as dotenv from 'dotenv';
 import { Request, Response, NextFunction } from 'express';
+import * as cookieParser from 'cookie-parser';
+
 import { AppDataSource } from './data-source';
 import { ResumeRoutes } from './routes/ResumeRoutes';
 import { VacancyRoutes } from './routes/VacancyRoutes';
 import { CompanyProfileRoutes } from './routes/CompanyProfileRoutes';
 import { ApplicantProfileRoutes } from './routes/ApplicantProfileRoutes';
 import { UserRoutes } from './routes/UserRoutes';
-import * as cookieParser from 'cookie-parser';
 import { errorMiddleware } from './middleware/error-middleware';
 
 dotenv.config();

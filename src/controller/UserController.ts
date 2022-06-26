@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+
 import { User } from '../entity/User';
 import { AppDataSource } from '../data-source';
 import { UserService } from '../service/user-service';
@@ -8,7 +9,6 @@ const userService = new UserService();
 export class UserController {
   async registration(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log('hello');
       const { email, password } = req.body;
       const userData = await userService.registration(email, password);
       res.cookie('refreshToken', userData.refreshToken, {
@@ -20,28 +20,6 @@ export class UserController {
       next(e);
     }
   }
-
-  // async login(req, res, next) {
-  //     try {
-
-  //     } catch (e) {
-
-  //     }
-  // }
-
-  // async logout(req, res, next) {
-  //     try {
-
-  //     } catch (e) {
-
-  //     }
-  // }
-
-  // async getUsers(request: Request, response: Response) {
-
-  //         response.send(['123']);
-
-  // }
   async activate(req: Request, res: Response, next: NextFunction) {
     try {
       const activationLink = req.params.link;

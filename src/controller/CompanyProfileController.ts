@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+
 import { CompanyProfile } from '../entity/CompanyProfile';
 import { AppDataSource } from '../data-source';
 
@@ -12,16 +13,10 @@ export class CompanyProfileController {
   }
 
   async add(request: Request, response: Response) {
-    const { name, email, address, phone, aboutCompany } = request.body;
-
     const companyProfileToAdd = AppDataSource.getRepository(
       CompanyProfile
     ).create({
-      name: name,
-      email: email,
-      address: address,
-      phone: phone,
-      aboutCompany: aboutCompany,
+      ...request.body,
     });
 
     await AppDataSource.getRepository(CompanyProfile).save(companyProfileToAdd);
@@ -29,7 +24,6 @@ export class CompanyProfileController {
   }
 
   async remove(request: Request, response: Response) {
-    console.log(request.params.id);
     let vacancyToRemove = await companyProfileRepository.findBy({
       id: request.params.id,
     });

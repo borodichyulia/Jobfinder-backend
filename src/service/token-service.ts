@@ -1,4 +1,5 @@
 import * as jwt from 'jsonwebtoken';
+
 import { Token } from '../entity/Token';
 import { AppDataSource } from '../data-source';
 
