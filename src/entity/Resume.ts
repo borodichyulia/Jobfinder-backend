@@ -1,51 +1,49 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Resume {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number
+  @Column()
+  name: string;
 
-    @Column()
-    name: string
+  @Column()
+  secondName: string;
 
-    @Column()
-    secondName: string
-    
-    @Column()
-    dateOfBirth: string
+  @Column()
+  dateOfBirth: string;
 
-    @Column()
-    gender: string
+  @Column()
+  gender: string;
 
-    @Column()
-    email: string
-    
-    @Column()
-    country: string
-    
-    @Column()
-    placeOfEducation: string
-    
-    @Column()
-    periodOfEducation: string
+  @Column()
+  email: string;
 
-    @Column()
-    specialization: string
+  @Column()
+  country: string;
 
-    @Column()
-    prevCompany: string
+  @Column()
+  placeOfEducation: string;
 
-    @Column()
-    periodOfWork: string
+  @Column()
+  periodOfEducation: string;
 
-    @Column()
-    profession: string
+  @Column()
+  specialization: string;
 
-    @Column()
-    generalInfo: string
-    
-    @Column()
-    contacts: string 
+  @Column()
+  prevCompany: string;
 
+  @Column()
+  periodOfWork: string;
+
+  @Column()
+  profession: string;
+
+  @Column()
+  generalInfo: string;
+
+  @Column()
+  contacts: string;
 }
