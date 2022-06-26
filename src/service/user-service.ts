@@ -17,6 +17,7 @@ const tokenService = new TokenService;
 export class UserService{
     async registration(email, password){
         const candidate = await AppDataSource.getRepository(User).findOne({where: {email: email}})
+        console.log(candidate);
         if (candidate) {
             throw ApiError.BadRequest(`Пользователь с почтовым адресом ${email} уже существует`)
         }

@@ -1,18 +1,19 @@
-export class ApiError extends Error {
-    status;
-    errors;
+export class ApiError {
+    status: number;
+    errors: [];
+    message: string;
 
-    constructor(status, message, errors = []) {
-        super(message);
+    constructor(status: number, message: string, errors: [] = []) {
         this.status = status;
         this.errors = errors;
+        this.message = message;
     }
 
     static UnauthorizedError() {
         return new ApiError(401, 'Пользователь не авторизован')
     }
 
-    static BadRequest(message, errors = []) {
+    static BadRequest(message: string, errors: [] = []) {
         return new ApiError(400, message, errors);
     }
 }
