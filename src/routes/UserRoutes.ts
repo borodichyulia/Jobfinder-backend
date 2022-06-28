@@ -20,4 +20,10 @@ export const UserRoutes = [
     controller: UserController,
     action: user.login,
   },
+  {
+    method: 'post',
+    route: '/logout',
+    controller: UserController,
+    action: user.logout,
+  },
 ];

@@ -44,4 +44,11 @@ export class TokenService {
 
     return token;
   }
+
+  async removeToken(refreshToken: string) {
+    const tokenData = await tokenRepository.delete({
+      refreshToken: refreshToken,
+    });
+    return tokenData;
+  }
 }
