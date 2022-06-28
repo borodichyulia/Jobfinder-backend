@@ -18,6 +18,7 @@ export class UserService {
     const candidate = await AppDataSource.getRepository(User).findOne({
       where: { email: email },
     });
+
     if (candidate) {
       throw ApiError.BadRequest(
         `Пользователь с почтовым адресом ${email} уже существует`
@@ -34,7 +35,7 @@ export class UserService {
 
     await mailService.sendActivationMail(
       email,
-      `http://localhost:3000/users/activate/${activationLink}`
+      `http://localhost:3000/activate/${activationLink}`
     );
 
     const user = await userRepository.save(newUser);
@@ -53,5 +54,23 @@ export class UserService {
     }
     user.isActivated = true;
     await userRepository.save(user);
+  }
+
+  async login(email: string, password: string) {
+    const user = await userRepository.findOne({ where: { email } });
+
+    if (!user) {
+      throw ApiError.BadRequest('Пользователь с таким email не найден');
+    }
+    const isPassEquals = await bcrypt.compare(password, user.password);
+
+    if (!isPassEquals) {
+      throw ApiError.BadRequest('Неверный пароль');
+    }
+    const userDto = new UserDto(user);
+    const tokens = tokenService.generateTokens({ ...userDto });
+
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+    return { ...tokens, user: userDto };
   }
 }

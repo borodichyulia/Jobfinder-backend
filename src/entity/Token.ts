@@ -13,10 +13,10 @@ export class Token {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  refreshToken: string;
+
   @OneToOne(() => User, (user) => user.id)
   @JoinColumn()
   user: User;
-
-  @Column()
-  refreshToken: string;
 }

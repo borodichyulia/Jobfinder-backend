@@ -2,6 +2,7 @@ import * as jwt from 'jsonwebtoken';
 
 import { Token } from '../entity/Token';
 import { AppDataSource } from '../data-source';
+import { User } from '../entity/User';
 
 const tokenRepository = AppDataSource.getRepository(Token);
 
@@ -22,24 +23,25 @@ export class TokenService {
   }
 
   async saveToken(userId, refreshToken) {
-    // console.log(userId);
-    // const tokenData = await tokenRepository.findBy({
-    //     user: userId
-    // })
-    // if(tokenData) {
-    //     // tokenData[userId].refreshToken = refreshToken;
-    //     // const token1 =await tokenRepository.save(tokenData[0]);
-    //     // console.log(token1);
-    //     // return(tokenData);
-    //     console.log(tokenData);
-    // }
+    const tokenData = await tokenRepository.findOne({
+      where: {
+        user: { id: userId },
+      },
+      relations: ['user'],
+    });
 
-    const token = await tokenRepository.create({
+    if (tokenData) {
+      tokenData.refreshToken = refreshToken;
+      const token1 = await tokenRepository.save(tokenData);
+      return token1;
+    }
+
+    const newToken = await tokenRepository.create({
       user: userId,
       refreshToken: refreshToken,
     });
-    const token1 = await tokenRepository.save(token);
+    const token = await tokenRepository.save(newToken);
 
-    return token1;
+    return token;
   }
 }
