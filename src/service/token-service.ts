@@ -32,8 +32,8 @@ export class TokenService {
 
     if (tokenData) {
       tokenData.refreshToken = refreshToken;
-      const token1 = await tokenRepository.save(tokenData);
-      return token1;
+      const token = await tokenRepository.save(tokenData);
+      return token;
     }
 
     const newToken = await tokenRepository.create({

@@ -22,7 +22,7 @@ export class ResumeController {
   }
 
   async remove(request: Request, response: Response) {
-    let profileToRemove = await resumeRepository.findBy({
+    const profileToRemove = await resumeRepository.findBy({
       id: request.params.id,
     });
     resumeRepository.remove(profileToRemove);

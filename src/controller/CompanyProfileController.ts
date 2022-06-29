@@ -24,7 +24,7 @@ export class CompanyProfileController {
   }
 
   async remove(request: Request, response: Response) {
-    let vacancyToRemove = await companyProfileRepository.findBy({
+    const vacancyToRemove = await companyProfileRepository.findBy({
       id: request.params.id,
     });
     companyProfileRepository.remove(vacancyToRemove);

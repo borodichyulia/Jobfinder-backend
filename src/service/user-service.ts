@@ -7,6 +7,7 @@ import { MailService } from './mail-service';
 import { TokenService } from './token-service';
 import { UserDto } from '../dtos/user-dto';
 import { ApiError } from '../exeptions/api-error';
+import { Constants } from '../constants/constants';
 
 const userRepository = AppDataSource.getRepository(User);
 
@@ -27,18 +28,16 @@ export class UserService {
     const hashPassword = await bcrypt.hash(password, 3);
     const activationLink = uuid.v4();
 
-    const newUser = await userRepository.create({
-      email: email,
-      password: hashPassword,
-      activationLink: activationLink,
-    });
-
     await mailService.sendActivationMail(
       email,
       `http://localhost:3000/activate/${activationLink}`
     );
 
-    const user = await userRepository.save(newUser);
+    const user = await userRepository.save({
+      email: email,
+      password: hashPassword,
+      activationLink: activationLink,
+    });
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
 
@@ -50,7 +49,7 @@ export class UserService {
   async activate(activationLink) {
     const user = await userRepository.findOne({ where: { activationLink } });
     if (!user) {
-      throw ApiError.BadRequest('Неккоректная ссылка активации');
+      throw ApiError.BadRequest(Constants.messageErrorActivation);
     }
     user.isActivated = true;
     await userRepository.save(user);
@@ -60,12 +59,12 @@ export class UserService {
     const user = await userRepository.findOne({ where: { email } });
 
     if (!user) {
-      throw ApiError.BadRequest('Пользователь с таким email не найден');
+      throw ApiError.BadRequest(Constants.messageErrorEmail);
     }
     const isPassEquals = await bcrypt.compare(password, user.password);
 
     if (!isPassEquals) {
-      throw ApiError.BadRequest('Неверный пароль');
+      throw ApiError.BadRequest(Constants.messageErrorPassword);
     }
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });

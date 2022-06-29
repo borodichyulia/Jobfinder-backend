@@ -69,6 +69,7 @@ AppDataSource.initialize()
     UserRoutes.forEach((route) => {
       app[route.method](
         route.route,
+        ...route.validation,
         (request: Request, response: Response, next: Function) => {
           route
             .action(request, response, next)

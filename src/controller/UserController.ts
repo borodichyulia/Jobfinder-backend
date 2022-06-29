@@ -1,14 +1,24 @@
 import { NextFunction, Request, Response } from 'express';
+import { validationResult } from 'express-validator';
 
 import { User } from '../entity/User';
 import { AppDataSource } from '../data-source';
 import { UserService } from '../service/user-service';
+import { ApiError } from '../exeptions/api-error';
+import { Constants } from '../constants/constants';
 
 const userRepository = AppDataSource.getRepository(User);
 const userService = new UserService();
 export class UserController {
   async registration(req: Request, res: Response, next: NextFunction) {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return next(
+          ApiError.BadRequest(Constants.messageErrorValidation),
+          errors.array()
+        );
+      }
       const { email, password } = req.body;
       const userData = await userService.registration(email, password);
       res.cookie('refreshToken', userData.refreshToken, {
@@ -24,7 +34,7 @@ export class UserController {
     try {
       const activationLink = req.params.link;
       await userService.activate(activationLink);
-      return res.redirect('https://yandex.ru/');
+      return res.redirect(process.env.CLIENT_URL);
     } catch (e) {
       next(e);
     }
