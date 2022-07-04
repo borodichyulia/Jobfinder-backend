@@ -4,19 +4,19 @@ export class MailService {
   transporter;
   constructor() {
     this.transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: process.env.SMTP_PORT,
+      host: 'smtp.mail.ru',
+      port: 465,
       secure: true,
       auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD,
+        user: 'jobfinder01@mail.ru',
+        pass: 'MDarC2caUxd9u3XRKg1D',
       },
     });
   }
 
   async sendActivationMail(to, link) {
     await this.transporter.sendMail({
-      from: process.env.SMTP_USER,
+      from: 'jobfinder01@mail.ru',
       to: to,
       subject: 'Активация аккаунта на Job Finder',
       text: '',

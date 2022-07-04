@@ -19,8 +19,14 @@ export class UserController {
           errors.array()
         );
       }
-      const { email, password } = req.body;
-      const userData = await userService.registration(email, password);
+      const { email, firstName, lastName, password, type } = req.body;
+      const userData = await userService.registration(
+        email,
+        firstName,
+        lastName,
+        password,
+        type
+      );
       res.cookie('refreshToken', userData.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,

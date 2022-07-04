@@ -9,7 +9,16 @@ export class User {
   email: string;
 
   @Column()
+  firstName: string;
+
+  @Column()
+  lastName: string;
+
+  @Column()
   password: string;
+
+  @Column()
+  type: string;
 
   @Column('boolean', { default: false })
   isActivated: boolean;

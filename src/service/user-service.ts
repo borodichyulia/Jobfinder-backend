@@ -15,7 +15,7 @@ const mailService = new MailService();
 const tokenService = new TokenService();
 
 export class UserService {
-  async registration(email, password) {
+  async registration(email, firstName, lastName, password, type) {
     const candidate = await AppDataSource.getRepository(User).findOne({
       where: { email: email },
     });
@@ -35,7 +35,10 @@ export class UserService {
 
     const user = await userRepository.save({
       email: email,
+      firstName: firstName,
+      lastName: lastName,
       password: hashPassword,
+      type: type,
       activationLink: activationLink,
     });
     const userDto = new UserDto(user);
