@@ -9,11 +9,15 @@ export class ApiError {
     this.message = message;
   }
 
-  static UnauthorizedError() {
-    return new ApiError(401, 'Пользователь не авторизован');
+  static UnauthorizedError(message: string) {
+    return new ApiError(401, message);
   }
 
   static BadRequest(message: string, errors: [] = []) {
     return new ApiError(400, message, errors);
+  }
+
+  static UnsupportedImage(message: string) {
+    return new ApiError(415, message);
   }
 }

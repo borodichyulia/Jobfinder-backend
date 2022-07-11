@@ -20,4 +20,10 @@ export const ResumeRoutes = [
     controller: ResumeController,
     action: resume.remove,
   },
+  {
+    method: 'post',
+    route: '/resumesAddVacancy/:id',
+    controller: ResumeController,
+    action: resume.applyVacancy,
+  },
 ];

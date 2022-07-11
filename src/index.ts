@@ -12,6 +12,7 @@ import { CompanyProfileRoutes } from './routes/CompanyProfileRoutes';
 import { ApplicantProfileRoutes } from './routes/ApplicantProfileRoutes';
 import { UserRoutes } from './routes/UserRoutes';
 import { errorMiddleware } from './middleware/error-middleware';
+const fileupload = require('express-fileupload');
 
 dotenv.config();
 
@@ -21,6 +22,8 @@ AppDataSource.initialize()
     const app = express();
     app.use(bodyParser.json());
     app.use(cookieParser());
+
+    app.use(fileupload({ useTempFiles: true }));
 
     const PORT = process.env.PORT || 3000;
 

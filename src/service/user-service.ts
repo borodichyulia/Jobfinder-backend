@@ -62,7 +62,7 @@ export class UserService {
     const user = await userRepository.findOne({ where: { email } });
 
     if (!user) {
-      throw ApiError.BadRequest(Constants.messageErrorEmail);
+      throw ApiError.UnauthorizedError(Constants.messageErrorEmail);
     }
     const isPassEquals = await bcrypt.compare(password, user.password);
 

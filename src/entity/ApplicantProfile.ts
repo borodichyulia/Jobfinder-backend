@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  JoinColumn,
+} from 'typeorm';
+
+import { Resume } from '../entity/Resume';
 
 @Entity()
 export class ApplicantProfile {
@@ -19,4 +27,11 @@ export class ApplicantProfile {
 
   @Column()
   phone: string;
+
+  @Column()
+  imgUrl: string;
+
+  @OneToMany(() => Resume, (resume) => resume.applicant)
+  @JoinColumn()
+  resumes: Resume[];
 }

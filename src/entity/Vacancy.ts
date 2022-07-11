@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  JoinTable,
+  ManyToMany,
+} from 'typeorm';
+
+import { Resume } from '../entity/Resume';
 
 @Entity()
 export class Vacancy {
@@ -14,7 +22,7 @@ export class Vacancy {
   @Column()
   reqExperience: string;
 
-  @Column({ type: Date })
+  @Column()
   schedule: string;
 
   @Column()

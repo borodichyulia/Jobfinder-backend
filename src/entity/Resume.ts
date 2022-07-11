@@ -1,4 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
+
+import { ApplicantProfile } from '../entity/ApplicantProfile';
+import { Vacancy } from '../entity/Vacancy';
 
 @Entity()
 export class Resume {
@@ -27,7 +37,10 @@ export class Resume {
   placeOfEducation: string;
 
   @Column()
-  periodOfEducation: string;
+  startOfEducation: string;
+
+  @Column()
+  endOfEducation: string;
 
   @Column()
   specialization: string;
@@ -36,7 +49,10 @@ export class Resume {
   prevCompany: string;
 
   @Column()
-  periodOfWork: string;
+  startOfWork: string;
+
+  @Column()
+  endOfWork: string;
 
   @Column()
   profession: string;
@@ -46,4 +62,14 @@ export class Resume {
 
   @Column()
   contacts: string;
+
+  @Column()
+  imgUrl: string;
+
+  @ManyToOne(() => ApplicantProfile, (applicant) => applicant.resumes)
+  applicant: ApplicantProfile;
+
+  @ManyToMany(() => Vacancy)
+  @JoinTable()
+  vacancies: Vacancy[];
 }
