@@ -33,14 +33,18 @@ export class ApplicantProfileController {
       await AppDataSource.getRepository(ApplicantProfile).save(
         applicantProfileToAdd
       );
-      const a = await AppDataSource.getRepository(ApplicantProfile).findOne({
-        where: { id: 1 },
-        relations: ['resumes'],
-      });
-      console.log(a);
+
       response.send(applicantProfileToAdd);
     } catch (err) {
       throw ApiError.UnsupportedImage(Constants.messageErrorImage);
     }
+  }
+
+  async viewApplicant(request: Request, response: Response) {
+    const applicants = await AppDataSource.getRepository(
+      ApplicantProfile
+    ).find();
+
+    response.send(applicants);
   }
 }

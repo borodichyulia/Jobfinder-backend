@@ -8,4 +8,10 @@ export const ApplicantProfileRoutes = [
     controller: ApplicantProfileController,
     action: applicantProfile.add,
   },
+  {
+    method: 'get',
+    route: '/applicant',
+    controller: ApplicantProfileController,
+    action: applicantProfile.viewApplicant,
+  },
 ];

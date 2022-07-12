@@ -7,7 +7,6 @@ import { UserService } from '../service/user-service';
 import { ApiError } from '../exeptions/api-error';
 import { Constants } from '../constants/constants';
 
-const userRepository = AppDataSource.getRepository(User);
 const userService = new UserService();
 export class UserController {
   async registration(req: Request, res: Response, next: NextFunction) {

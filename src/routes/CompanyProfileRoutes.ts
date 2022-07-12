@@ -20,4 +20,10 @@ export const CompanyProfileRoutes = [
     controller: CompanyProfileController,
     action: companyProfile.remove,
   },
+  {
+    method: 'get',
+    route: '/companyView',
+    controller: CompanyProfileController,
+    action: companyProfile.viewCompany,
+  },
 ];

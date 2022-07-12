@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 
 import { CompanyProfile } from '../entity/CompanyProfile';
 import { AppDataSource } from '../data-source';
@@ -29,5 +29,11 @@ export class CompanyProfileController {
     });
     companyProfileRepository.remove(vacancyToRemove);
     response.send(vacancyToRemove);
+  }
+
+  async viewCompany(request: Request, response: Response) {
+    const companies = await AppDataSource.getRepository(CompanyProfile).find();
+
+    response.send(companies);
   }
 }

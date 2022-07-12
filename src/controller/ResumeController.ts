@@ -1,11 +1,10 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 
 import { Resume } from '../entity/Resume';
 import { ApplicantProfile } from '../entity/ApplicantProfile';
 import { Vacancy } from '../entity/Vacancy';
 import { AppDataSource } from '../data-source';
 import { cloudinary } from '../utils/cloudinary';
-
 import { ApiError } from '../exeptions/api-error';
 import { Constants } from '../constants/constants';
 
@@ -73,9 +72,6 @@ export class ResumeController {
         applicant: applicant,
       });
 
-      //1 get id from request(applicant)
-      //2
-
       await resumeRepository.save(resumeToAdd);
       response.send(resumeToAdd);
     } catch (err) {
@@ -103,8 +99,7 @@ export class ResumeController {
 
     resumeForApply.vacancies = resumeForApply.vacancies.concat(vacancyToAdd);
 
-    const a = await resumeRepository.save(resumeForApply);
-    console.log(a);
-    response.send(a);
+    const resumeWithApply = await resumeRepository.save(resumeForApply);
+    response.send(resumeWithApply);
   }
 }
