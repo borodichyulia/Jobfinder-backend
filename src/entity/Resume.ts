@@ -66,7 +66,9 @@ export class Resume {
   @Column()
   imgUrl: string;
 
-  @ManyToOne(() => ApplicantProfile, (applicant) => applicant.resumes)
+  @ManyToOne(() => ApplicantProfile, (applicant) => applicant.resumes, {
+    onDelete: 'CASCADE',
+  })
   applicant: ApplicantProfile;
 
   @ManyToMany(() => Vacancy)

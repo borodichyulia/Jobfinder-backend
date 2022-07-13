@@ -20,4 +20,10 @@ export const VacancyRoutes = [
     controller: VacancyController,
     action: vacancy.remove,
   },
+  {
+    method: 'put',
+    route: '/vacancies/:vacancyId',
+    controller: VacancyController,
+    action: vacancy.updateVacancy,
+  },
 ];

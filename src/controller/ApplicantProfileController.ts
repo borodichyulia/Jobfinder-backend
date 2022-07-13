@@ -40,11 +40,51 @@ export class ApplicantProfileController {
     }
   }
 
+  async remove(request: Request, response: Response) {
+    const profileToRemove = await AppDataSource.getRepository(
+      ApplicantProfile
+    ).findBy({
+      id: request.params.id,
+    });
+    AppDataSource.getRepository(ApplicantProfile).remove(profileToRemove);
+    response.send(profileToRemove);
+  }
+
   async viewApplicant(request: Request, response: Response) {
     const applicants = await AppDataSource.getRepository(
       ApplicantProfile
     ).find();
 
     response.send(applicants);
+  }
+
+  async updateApplicantProfile(request: Request, response: Response) {
+    try {
+      const applicantId = request.params.applicantId;
+
+      const fileStr = request.files.data;
+      const uploadResponse = await cloudinary.uploader.upload(
+        fileStr.tempFilePath,
+        {
+          upload_preset: 'application_profile',
+        }
+      );
+      const { name, surname, email, age, phone } = request.body;
+      const imgUrl = uploadResponse.url;
+
+      const updateApplicantProfile = await AppDataSource.getRepository(
+        ApplicantProfile
+      ).update(applicantId, {
+        name: name,
+        surname: surname,
+        email: email,
+        age: age,
+        phone: phone,
+        imgUrl: imgUrl,
+      });
+      response.send(updateApplicantProfile);
+    } catch (err) {
+      throw ApiError.UnsupportedImage(Constants.messageErrorImage);
+    }
   }
 }

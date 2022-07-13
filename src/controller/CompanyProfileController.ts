@@ -36,4 +36,14 @@ export class CompanyProfileController {
 
     response.send(companies);
   }
+
+  async updateCompanyProfile(request: Request, response: Response) {
+    const companyId = request.params.companyId;
+
+    const updateCompanyProfile = await AppDataSource.getRepository(
+      CompanyProfile
+    ).update(companyId, { ...request.body });
+
+    response.send(updateCompanyProfile);
+  }
 }

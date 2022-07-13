@@ -26,4 +26,10 @@ export const CompanyProfileRoutes = [
     controller: CompanyProfileController,
     action: companyProfile.viewCompany,
   },
+  {
+    method: 'put',
+    route: '/company/:companyId',
+    controller: CompanyProfileController,
+    action: companyProfile.updateCompanyProfile,
+  },
 ];

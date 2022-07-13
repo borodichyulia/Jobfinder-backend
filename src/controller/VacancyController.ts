@@ -28,4 +28,15 @@ export class VacancyController {
     vacancyRepository.remove(vacancyToRemove);
     response.send(vacancyToRemove);
   }
+
+  async updateVacancy(request: Request, response: Response) {
+    const vacancyId = request.params.vacancyId;
+
+    const updateVacancy = await AppDataSource.getRepository(Vacancy).update(
+      vacancyId,
+      { ...request.body }
+    );
+
+    response.send(updateVacancy);
+  }
 }

@@ -102,4 +102,70 @@ export class ResumeController {
     const resumeWithApply = await resumeRepository.save(resumeForApply);
     response.send(resumeWithApply);
   }
+
+  async updateResume(request: Request, response: Response) {
+    try {
+      const resumeId = request.params.resumeId;
+
+      const fileStr = request.files.data;
+      const uploadResponse = await cloudinary.uploader.upload(
+        fileStr.tempFilePath,
+        {
+          upload_preset: 'resume',
+        }
+      );
+
+      const {
+        name,
+        secondName,
+        dateOfBirth,
+        gender,
+        email,
+        country,
+        placeOfEducation,
+        startOfEducation,
+        endOfEducation,
+        specialization,
+        prevCompany,
+        startOfWork,
+        endOfWork,
+        profession,
+        generalInfo,
+        contacts,
+        applicantId,
+      } = request.body;
+      const imgUrl = uploadResponse.url;
+      const applicant = await AppDataSource.getRepository(
+        ApplicantProfile
+      ).findOne({ where: { id: applicantId } });
+
+      const newResume = await AppDataSource.getRepository(Resume).update(
+        resumeId,
+        {
+          name: name,
+          secondName: secondName,
+          dateOfBirth: dateOfBirth,
+          gender: gender,
+          email: email,
+          country: country,
+          placeOfEducation: placeOfEducation,
+          startOfEducation: startOfEducation,
+          endOfEducation: endOfEducation,
+          specialization: specialization,
+          prevCompany: prevCompany,
+          startOfWork: startOfWork,
+          endOfWork: endOfWork,
+          profession: profession,
+          generalInfo: generalInfo,
+          contacts: contacts,
+          imgUrl: imgUrl,
+          applicant: applicant,
+        }
+      );
+
+      response.send(newResume);
+    } catch (err) {
+      throw ApiError.UnsupportedImage(Constants.messageErrorImage);
+    }
+  }
 }

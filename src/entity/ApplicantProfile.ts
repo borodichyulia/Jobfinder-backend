@@ -31,7 +31,9 @@ export class ApplicantProfile {
   @Column()
   imgUrl: string;
 
-  @OneToMany(() => Resume, (resume) => resume.applicant)
+  @OneToMany(() => Resume, (resume) => resume.applicant, {
+    cascade: true,
+  })
   @JoinColumn()
   resumes: Resume[];
 }

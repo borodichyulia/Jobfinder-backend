@@ -14,4 +14,16 @@ export const ApplicantProfileRoutes = [
     controller: ApplicantProfileController,
     action: applicantProfile.viewApplicant,
   },
+  {
+    method: 'put',
+    route: '/applicant/:applicantId',
+    controller: ApplicantProfileController,
+    action: applicantProfile.updateApplicantProfile,
+  },
+  {
+    method: 'delete',
+    route: '/applicant/:id',
+    controller: ApplicantProfileController,
+    action: applicantProfile.remove,
+  },
 ];
