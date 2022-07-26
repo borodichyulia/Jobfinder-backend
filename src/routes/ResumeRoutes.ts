@@ -22,7 +22,7 @@ export const ResumeRoutes = [
   },
   {
     method: 'post',
-    route: '/resumesAddVacancy/:id',
+    route: '/resumes/:id',
     controller: ResumeController,
     action: resume.applyVacancy,
   },

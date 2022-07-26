@@ -96,6 +96,7 @@ export class ResumeController {
       where: { id: request.params.id },
       relations: ['vacancies'],
     });
+    console.log(resumeForApply);
 
     resumeForApply.vacancies = resumeForApply.vacancies.concat(vacancyToAdd);
 

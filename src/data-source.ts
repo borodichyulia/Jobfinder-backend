@@ -9,12 +9,15 @@ import { User } from './entity/User';
 import { Token } from './entity/Token';
 import { Specialization } from './entity/Specialization';
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 export const AppDataSource = new DataSource({
   type: 'postgres',
   host: 'localhost',
   port: 5432,
-  username: 'postgres',
-  password: 'postgres',
+  username: process.env.TYPEORM_USERNAME,
+  password: process.env.TYPEORM_PASSWORD,
   database: 'postgres',
   synchronize: true,
   logging: false,

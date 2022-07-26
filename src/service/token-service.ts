@@ -2,7 +2,9 @@ import * as jwt from 'jsonwebtoken';
 
 import { Token } from '../entity/Token';
 import { AppDataSource } from '../data-source';
-import { User } from '../entity/User';
+
+const dotenv = require('dotenv');
+dotenv.config();
 
 const tokenRepository = AppDataSource.getRepository(Token);
 
